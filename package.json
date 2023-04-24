@@ -1,0 +1,28 @@
+{
+    "name": "my_cli",
+    "version": "1.0.0",
+    "description": "",
+    "main": "bin/my_cli.js",
+    "scripts": {
+        "test-ci": "jest --ci",
+        "test": "jest --watchAll"
+    },
+    "bin": {
+        "crypto": "./bin/index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "module",
+    "dependencies": {
+        "boxen": "^7.0.2",
+        "chalk": "^5.2.0",
+        "cli-table": "^0.3.11",
+        "dotenv": "^16.0.3",
+        "yargs": "^17.7.1"
+    },
+    "devDependencies": {
+        "jest": "^29.5.0",
+        "supertest": "^6.3.3"
+    }
+}
