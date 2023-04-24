@@ -11,7 +11,7 @@ const table = new Table({
 });
 
 const getCoins = async () => {
-    const response = await fetch("http://localhost:4200/api/coins");
+    const response = await fetch("https://crypto-cli.onrender.com/api/coins");
     const data = await response.json();
     return data.data;
 };
