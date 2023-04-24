@@ -19,8 +19,12 @@ const updateTable = async () => {
     const coins = await getCoins();
     if (table.length !== 0) table.splice(0, table.length);
     console.clear();
-    await coins.coins.forEach((coin) => {
-        table.push([coin.name, `${Number(coin.price).toFixed(2)} USD`, coin.change.includes("-") ? chalk.red(coin.change) : chalk.green(coin.change)]);
+    await coins.data.forEach((coin) => {
+        table.push([
+            coin.name,
+            `${Number(coin.priceUsd).toFixed(2)} USD`,
+            coin.changePercent24Hr.includes("-") ? chalk.red(Number(coin.changePercent24Hr).toFixed(2)) : chalk.green(Number(coin.changePercent24Hr).toFixed(2)),
+        ]);
     });
     if (hideBin(process.argv).length === 0) log(boxen("Welcome to My CLI", { padding: 1, margin: 1, borderStyle: "round" }));
     yargs(hideBin(process.argv))
