@@ -15,6 +15,11 @@ const getCoins = async () => {
     const data = await response.json();
     return data.data;
 };
+const getCoinById = async (coin) => {
+    const response = await fetch(`https://crypto-cli.onrender.com/api/coins/${coin.toLowerCase()}`);
+    const data = await response.json();
+    return data.data;
+};
 const updateTable = async () => {
     const coins = await getCoins();
     if (table.length !== 0) table.splice(0, table.length);
@@ -26,11 +31,21 @@ const updateTable = async () => {
             coin.changePercent24Hr.includes("-") ? chalk.red(Number(coin.changePercent24Hr).toFixed(2)) : chalk.green(Number(coin.changePercent24Hr).toFixed(2)),
         ]);
     });
-    if (hideBin(process.argv).length === 0) log(boxen("Welcome to My CLI", { padding: 1, margin: 1, borderStyle: "round" }));
-    yargs(hideBin(process.argv))
-        .command("coins", "show top 10 coins", () => log(table.toString()))
-        .demandCommand(1)
-        .parse();
+    log(table.toString());
 };
-await updateTable();
-setInterval(updateTable, 5000);
+if (hideBin(process.argv).length === 0) log(boxen("Welcome to My CLI", { padding: 1, margin: 1, borderStyle: "round" }));
+yargs(hideBin(process.argv))
+    .command("coins", "show top 10 coins", async () => {
+        await updateTable();
+        setInterval(updateTable, 5000);
+    })
+    .command("coin <coin>", "show coin by name e.g Bitcoin", async (yargs) => {
+        try {
+            const coin = await getCoinById(yargs.argv._[1]);
+            console.log(coin);
+        } catch (error) {
+            console.log(error);
+        }
+    })
+    .demandCommand(1)
+    .parse();
