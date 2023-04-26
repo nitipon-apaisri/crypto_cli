@@ -47,7 +47,7 @@ const updateTable = async (data) => {
 };
 if (hideBin(process.argv).length === 0) log(boxen("Welcome to My CLI", { padding: 1, margin: 1, borderStyle: "round" }));
 yargs(hideBin(process.argv))
-    .command("coins", "show top 10 coins", async () => {
+    .command("top", "show top 10 coins", async () => {
         await updateTable(await getCoins());
         setInterval(async () => updateTable(await getCoins()), 5000);
     })
