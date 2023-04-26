@@ -28,7 +28,7 @@ const getCoinByIds = async (coins) => {
 const updateTable = async (data) => {
     if (table.length !== 0) table.splice(0, table.length);
     console.clear();
-    if (typeof data === Array) {
+    if (Array.isArray(data.data)) {
         data.data.forEach((coin) => {
             table.push([
                 coin.name,
